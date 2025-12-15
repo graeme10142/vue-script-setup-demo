@@ -18,6 +18,15 @@ import UploadDemo from './components/UploadDemo.vue'
 // Track which demo is active
 const activeDemo = ref('counter')
 const showDualScriptDemo = ref(true)
+const notifyLog = ref([])
+
+const handleNotify = (message) => {
+  notifyLog.value.unshift({
+    time: new Date().toLocaleTimeString(),
+    message
+  })
+  if (notifyLog.value.length > 5) notifyLog.value.pop()
+}
 
 const demos = [
   { id: 'counter', name: 'Basic Counter', desc: 'Script setup basics' },
@@ -76,8 +85,18 @@ const demos = [
       <!-- Emits Demo -->
       <section v-if="activeDemo === 'emits'" class="demo-section">
         <h2>defineEmits</h2>
-        <p>Type-safe event emission with payload validation.</p>
-        <EmitsDemo @notify="(msg) => alert(msg)" />
+        <p>Emit an event from child to parent and handle it without relying on alert popups.</p>
+        <EmitsDemo @notify="handleNotify" />
+        <div class="parent-log">
+          <h3>Parent handler log</h3>
+          <p v-if="notifyLog.length === 0" class="muted">No events received yet.</p>
+          <ul v-else class="log-list">
+            <li v-for="(entry, idx) in notifyLog" :key="idx">
+              <code>{{ entry.time }}</code>
+              <span>{{ entry.message }}</span>
+            </li>
+          </ul>
+        </div>
       </section>
 
       <!-- Model Demo -->
@@ -249,6 +268,41 @@ const demos = [
   color: #455a64;
   font-size: 14px;
   font-weight: 600;
+}
+
+.parent-log {
+  margin-top: 16px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 14px 16px;
+  border: 1px solid #eee;
+}
+
+.parent-log h3 {
+  margin: 0 0 10px 0;
+  color: #35495e;
+  font-size: 14px;
+}
+
+.muted {
+  color: #777;
+  margin: 0;
+  font-size: 13px;
+}
+
+.log-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #455a64;
+}
+
+.log-list code {
+  margin-right: 10px;
+  color: #42b883;
 }
 
 .footer {
