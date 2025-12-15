@@ -17,7 +17,8 @@ import UploadDemo from './components/UploadDemo.vue'
 
 // Track which demo is active
 const activeDemo = ref('counter')
-const showDualScriptDemo = ref(true)
+const showDualScriptA = ref(true)
+const showDualScriptB = ref(true)
 const notifyLog = ref([])
 
 const handleNotify = (message) => {
@@ -145,11 +146,20 @@ const demos = [
       <section v-if="activeDemo === 'dual-script'" class="demo-section">
         <h2>Regular &lt;script&gt; + &lt;script setup&gt;</h2>
         <p>Module-scoped state runs once; script setup runs per component instance.</p>
-        <label class="mount-toggle">
-          <input v-model="showDualScriptDemo" type="checkbox" />
-          Mount DualScriptDemo
-        </label>
-        <DualScriptDemo v-if="showDualScriptDemo" />
+        <div class="mount-toggles">
+          <label class="mount-toggle">
+            <input v-model="showDualScriptA" type="checkbox" />
+            Mount instance A
+          </label>
+          <label class="mount-toggle">
+            <input v-model="showDualScriptB" type="checkbox" />
+            Mount instance B
+          </label>
+        </div>
+        <div class="dual-grid">
+          <DualScriptDemo v-if="showDualScriptA" instance="A" />
+          <DualScriptDemo v-if="showDualScriptB" instance="B" />
+        </div>
       </section>
 
       <!-- Cloudinary Demo -->
@@ -268,6 +278,24 @@ const demos = [
   color: #455a64;
   font-size: 14px;
   font-weight: 600;
+}
+
+.mount-toggles {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.dual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 700px) {
+  .dual-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .parent-log {

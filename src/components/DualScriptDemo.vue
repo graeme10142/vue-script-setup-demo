@@ -12,6 +12,13 @@ export default {
 <script setup>
 import { ref } from 'vue'
 
+defineProps({
+  instance: {
+    type: String,
+    default: 'A'
+  }
+})
+
 // Runs per component instance
 const localCount = ref(0)
 
@@ -20,6 +27,11 @@ const incShared = () => {
 }
 
 const incLocal = () => {
+  localCount.value++
+}
+
+const incBoth = () => {
+  sharedState.count++
   localCount.value++
 }
 
@@ -41,10 +53,11 @@ const resetLocal = () => {
     </div>
 
     <div class="card">
-      <h4>&lt;script setup&gt; (instance scope)</h4>
+      <h4>&lt;script setup&gt; (instance scope) - Instance {{ instance }}</h4>
       <p><strong>localCount</strong>: <span class="value">{{ localCount }}</span></p>
       <div class="buttons">
         <button class="btn" @click="incLocal">Increment local</button>
+        <button class="btn both" @click="incBoth">Increment both</button>
         <button class="btn secondary" @click="resetLocal">Reset local</button>
       </div>
       <p class="hint">
@@ -104,10 +117,13 @@ const resetLocal = () => {
   background: #35495e;
 }
 
+.btn.both {
+  background: #7c4dff;
+}
+
 .hint {
   margin: 10px 0 0 0;
   color: #607d8b;
   font-size: 13px;
 }
 </style>
-
