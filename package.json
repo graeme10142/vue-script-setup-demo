@@ -1,0 +1,29 @@
+{
+  "name": "vue-script-setup-demo",
+  "version": "1.0.0",
+  "description": "Demo project for Vue 3 Script Setup article - Cloudinary Blog",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.13",
+    "@cloudinary/vue": "^1.13.0",
+    "@cloudinary/url-gen": "^1.21.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.0.3"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "script-setup",
+    "cloudinary",
+    "tutorial"
+  ],
+  "author": "",
+  "license": "MIT"
+}
