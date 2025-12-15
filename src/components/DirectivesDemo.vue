@@ -95,11 +95,11 @@ const closeDropdown = () => {
     <div class="demo-card">
       <h4>v-click-outside</h4>
       <p>Click outside the dropdown to close it:</p>
-      <div class="dropdown-container">
+      <div class="dropdown-container" v-click-outside="closeDropdown">
         <button @click="dropdownOpen = !dropdownOpen" class="dropdown-btn">
           {{ dropdownOpen ? 'Close' : 'Open' }} Dropdown
         </button>
-        <div v-if="dropdownOpen" v-click-outside="closeDropdown" class="dropdown-menu">
+        <div v-if="dropdownOpen" class="dropdown-menu">
           <div class="dropdown-item">Option 1</div>
           <div class="dropdown-item">Option 2</div>
           <div class="dropdown-item">Option 3</div>
@@ -257,4 +257,3 @@ const closeDropdown = () => {
   font-size: 13px;
 }
 </style>
-
